@@ -243,7 +243,7 @@
                     </div>
 
                     <div class="mb-3 text-end">
-                        <a href="#" class="text-danger small-link">Lupa Password?</a>
+                        {{-- <a href="#" class="text-danger small-link">Lupa Password?</a> --}}
                     </div>
 
                     <div class="form-check mb-3 text-start">
