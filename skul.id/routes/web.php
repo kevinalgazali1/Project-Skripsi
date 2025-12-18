@@ -94,7 +94,6 @@ Route::middleware(['auth', 'role:alumnisiswa'])->group(function () {
         Route::get('/alumni-siswa/loker/search', [AlumniSiswaController::class, 'lokerSearch'])->name('alumni-siswa.loker.search');
         Route::get('/alumni-siswa/pelatihan', [AlumniSiswaController::class, 'pelatihan'])->name('alumni-siswa.pelatihan');
         Route::get('/alumni-siswa/ikatan', [AlumniSiswaController::class, 'ikatan'])->name('alumni-siswa.ikatan');
-        // Route::get('/alumni-siswa/kuliah', [AlumniSiswaController::class, 'kuliah'])->name('alumni-siswa.kuliah');
         Route::get('/alumni-siswa/artikel', [AlumniSiswaController::class, 'artikel'])->name('alumni-siswa.artikel');
         Route::get('/alumni-siswa/editProfile', [AlumniSiswaController::class, 'editProfile'])->name('alumni-siswa.editProfile');
         Route::put('/alumni-siswa/update-profile', [AlumniSiswaController::class, 'updateProfile'])->name('alumni-siswa.updateProfile');

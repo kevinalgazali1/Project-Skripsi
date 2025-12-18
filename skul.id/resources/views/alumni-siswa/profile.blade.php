@@ -443,7 +443,7 @@
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email Baru</label>
                                     <input type="email" name="email" id="email"
-                                        value="{{ old('email', $user->email) }}" class="form-control" readonly>
+                                        value="{{ old('email', $user->email) }}" class="form-control">
                                     @error('email')
                                         <div class="text-danger small">{{ $message }}</div>
                                     @enderror

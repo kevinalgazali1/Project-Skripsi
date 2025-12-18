@@ -266,7 +266,7 @@
                                     <td class="text-start">{{ $m->alamat }}</td>
 
                                     <td>
-                                        <form action="{{ route('admin.usersmitra') }}" method="POST"
+                                        <form action="{{ route('admin.usersmitra.destroy') }}" method="POST"
                                             onsubmit="return confirm('Yakin ingin menghapus mitra ini?')"
                                             class="d-inline">
                                             @csrf

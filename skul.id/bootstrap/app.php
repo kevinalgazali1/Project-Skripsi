@@ -20,11 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'guest.redirect' => App\Http\Middleware\RedirectIfAuthenticatedCustom::class,
             'count-website-visit' => App\Http\Middleware\CountWebsiteVisit::class,
         ]);
-
-        // $middleware->append([
-        //     StartSession::class,
-        //     App\Http\Middleware\CountWebsiteVisit::class,
-        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -343,7 +343,8 @@
 
                     <div class="form-group">
                         <label>Skill</label>
-                        <input name="skills">{{ old('skills') }}</input>
+                        <input type="text" name="skills"
+                            placeholder="Contoh: HTML, CSS, JavaScript">{{ old('skills') }}</input>
                     </div>
 
                     <div class="form-group">
@@ -371,8 +372,6 @@
             </div>
         </div>
     </div>
-    </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if ($errors->has('email'))

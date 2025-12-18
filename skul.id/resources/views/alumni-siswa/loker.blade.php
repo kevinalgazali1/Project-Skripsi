@@ -263,10 +263,6 @@
                 flex-direction: column;
             }
 
-            .sidebar {
-                display: none;
-            }
-
             .user-info {
                 display: none;
                 ;
@@ -289,10 +285,6 @@
         @media (max-width: 1000px) {
             .main-wrapper {
                 flex-direction: column;
-            }
-
-            .sidebar {
-                display: none;
             }
 
             #fitur {
@@ -636,7 +628,7 @@
                                                         <i class="bi bi-mortarboard me-1"></i>{{ $job['pendidikan'] }}
                                                     </span>
                                                     <span class="badge bg-success text-white">
-                                                        {{ number_format($job['relevansi_persen'], 2) }}% cocok
+                                                        {{ number_format($job['perhitungan']['similarity_persen'], 2) }}% cocok
                                                     </span>
                                                 </div>
 
@@ -668,7 +660,7 @@
                                                     <p><strong>Lokasi:</strong> {{ $job['lokasi'] }}</p>
                                                     <p><strong>Pendidikan:</strong> {{ $job['pendidikan'] }}</p>
                                                     <p><strong>Kecocokan:</strong>
-                                                        {{ number_format($job['relevansi_persen'], 2) }}%</p>
+                                                        {{ number_format($job['perhitungan']['similarity_persen'], 2) }}%</p>
                                                     <p class="text-muted small fst-italic">
                                                         {{ $job['deskripsi'] }}
                                                     </p>

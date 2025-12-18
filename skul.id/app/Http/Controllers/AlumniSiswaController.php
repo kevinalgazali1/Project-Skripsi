@@ -89,7 +89,6 @@ class AlumniSiswaController extends Controller
         return response()->json(['results' => $results]);
     }
 
-
     public function storeProfile(Request $request)
     {
         $validated = $request->validate([
