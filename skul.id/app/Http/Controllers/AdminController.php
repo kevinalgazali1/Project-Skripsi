@@ -391,6 +391,7 @@ class AdminController extends Controller
             'tipe' => 'required|string',
             'pendidikan' => 'required|string',
             'gaji' => 'nullable|string',
+            'skills' => 'nullable|string',
             'deskripsi' => 'required|string',
             'gambar' => 'nullable|image|max:2048',
         ]);

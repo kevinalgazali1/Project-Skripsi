@@ -155,10 +155,13 @@ class LokerController extends Controller
             ' - Rp ' . number_format($request->gaji_max, 0, ',', '.');
 
         if ($request->hasFile('gambar')) {
-            // 🔥 Hapus file lama jika ada
-            $oldPath = public_path('storage/' . $loker->gambar);
-            if (file_exists($oldPath)) {
-                unlink($oldPath);
+            // 🔥 Hapus file lama jika ada dan bukan null/kosong
+            if ($loker->gambar) {
+                $oldPath = public_path('storage/' . $loker->gambar);
+                // Cek apakah path adalah file (bukan direktori) dan file exists
+                if (file_exists($oldPath) && is_file($oldPath)) {
+                    unlink($oldPath);
+                }
             }
 
             // 📥 Upload file baru

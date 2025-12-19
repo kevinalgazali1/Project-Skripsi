@@ -255,7 +255,7 @@
                                 <div class="mb-3">
                                     <label for="no_hp" class="form-label">No. HP</label>
                                     <input type="text" name="no_hp" id="no_hp"
-                                        value="{{ old('no_hp', $user->no_hp) }}" class="form-control" required>
+                                        value="{{ old('no_hp', $user->no_hp) }}" class="form-control" readonly>
                                     @error('no_hp')
                                         <div class="text-danger small">{{ $message }}</div>
                                     @enderror

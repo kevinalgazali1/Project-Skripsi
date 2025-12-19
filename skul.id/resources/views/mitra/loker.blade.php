@@ -1075,8 +1075,8 @@
 
                                                 <div class="mb-3">
                                                     <label class="form-label">Skill yang di butuhkan</label>
-                                                    <input name="skills" class="form-control" placeholder="Skill yang dibutukan"
-                                                        required></input>
+                                                    <input name="skills" class="form-control"
+                                                        placeholder="Skill yang dibutukan" required></input>
                                                 </div>
 
                                                 <div class="mb-3">
@@ -1103,7 +1103,7 @@
                     <!-- Modal Edit (Versi Lebih Rapi dan Ilustratif) -->
                     <div class="modal fade" id="editLokerModal" tabindex="-1" aria-labelledby="editLokerModalLabel"
                         aria-hidden="true">
-                        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
                             <div class="modal-content edit-modal-content border-0 shadow-lg">
                                 <form id="editForm" method="POST" enctype="multipart/form-data"
                                     onsubmit="return validateGajiEdit()">
@@ -1111,6 +1111,7 @@
                                     @method('PUT')
                                     <input type="hidden" name="id" id="edit_id">
 
+                                    <!-- Header - Fixed -->
                                     <div class="modal-header bg-primary text-white">
                                         <h5 class="modal-title fw-semibold">
                                             <i class="bi bi-pencil-square me-2"></i>Edit Lowongan Kerja
@@ -1119,7 +1120,9 @@
                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
-                                    <div class="modal-body px-4 pt-4" style="max-height: 75vh; overflow-y: auto;">
+                                    <!-- Body - Scrollable -->
+                                    <div class="modal-body px-4 pt-4"
+                                        style="max-height: calc(100vh - 200px); overflow-y: auto;">
                                         <div class="row gx-5 gy-4">
                                             <!-- Kiri -->
                                             <div class="col-lg-6">
@@ -1136,7 +1139,8 @@
 
                                                 <div class="mb-3">
                                                     <label class="form-label">Skill yang dibutuhkan</label>
-                                                    <input class="form-control" id="edit_skills" name="skills" required></input>
+                                                    <input class="form-control" id="edit_skills" name="skills"
+                                                        required>
                                                 </div>
 
                                                 <div class="mb-3">
@@ -1217,7 +1221,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="modal-footer bg-light border-top-0 px-4 py-3">
+                                    <!-- Footer - Fixed -->
+                                    <div class="modal-footer bg-light border-top px-4 py-3">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                             <i class="bi bi-x-circle me-1"></i> Batal
                                         </button>
@@ -1485,18 +1490,19 @@
                 document.getElementById('edit_skills').value = data.skills;
                 document.getElementById('edit_status').value = data.status;
 
-                // Gaji
-                if (data.gaji) {
-                    let match = data.gaji.match(/Rp\s?([\d.]+)\s?-\s?Rp\s?([\d.]+)/);
-                    if (match) {
-                        let gajiMin = match[1].replace(/\./g, '');
-                        let gajiMax = match[2].replace(/\./g, '');
-                        document.getElementById('edit_gaji_min').value = gajiMin;
-                        document.getElementById('edit_gaji_max').value = gajiMax;
-                        document.getElementById('edit_gaji_min_view').value = new Intl.NumberFormat('id-ID').format(gajiMin);
-                        document.getElementById('edit_gaji_max_view').value = new Intl.NumberFormat('id-ID').format(gajiMax);
+                    // Parsing gaji
+                    if (data.gaji) {
+                        let match = data.gaji.match(/([\d.]+)\s?-\s?([\d.]+)/);
+                        if (match) {
+                            let gajiMin = match[1].replace(/\./g, '');
+                            let gajiMax = match[2].replace(/\./g, '');
+
+                            document.getElementById('edit_gaji_min').value = gajiMin;
+                            document.getElementById('edit_gaji_max').value = gajiMax;
+                            document.getElementById('edit_gaji_min_view').value = new Intl.NumberFormat('id-ID').format(gajiMin);
+                            document.getElementById('edit_gaji_max_view').value = new Intl.NumberFormat('id-ID').format(gajiMax);
+                        }
                     }
-                }
 
                 // Preview gambar
                 if (data.foto) {

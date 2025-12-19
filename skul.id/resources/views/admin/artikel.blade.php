@@ -348,7 +348,8 @@
                                                             <div class="mb-3">
                                                                 <label for="gambar_artikel{{ $item->id }}"
                                                                     class="form-label fw-semibold">Gambar Artikel
-                                                                    (Opsional)</label>
+                                                                    (Opsional)
+                                                                </label>
                                                                 <input class="form-control shadow-sm" type="file"
                                                                     id="gambar_artikel{{ $item->id }}"
                                                                     name="gambar_artikel" accept="image/*">
@@ -570,13 +571,15 @@
                     const form = document.createElement('form');
                     form.method = 'POST';
                     form.action = `/admin/delete-artikel/${id}`;
-                    form.innerHTML = `@csrf`;
+                    form.innerHTML = `
+                @csrf
+                @method('DELETE')
+            `;
                     document.body.appendChild(form);
                     form.submit();
                 }
             });
         }
-
 
         function confirmTambah() {
             Swal.fire({

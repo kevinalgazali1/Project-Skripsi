@@ -774,7 +774,10 @@
                                                 <li class="page-item active"><span
                                                         class="page-link">{{ $page }}</span>
                                                 </li>
-                                            @elseif ($page == 1 || $page == $pelatihanMitraSendiri->lastPage() || abs($page - $pelatihanMitraSendiri->currentPage()) <= 1)
+                                            @elseif (
+                                                $page == 1 ||
+                                                    $page == $pelatihanMitraSendiri->lastPage() ||
+                                                    abs($page - $pelatihanMitraSendiri->currentPage()) <= 1)
                                                 <li class="page-item"><a class="page-link"
                                                         href="{{ $url }}">{{ $page }}</a></li>
                                             @elseif ($page == 2 || $page == $pelatihanMitraSendiri->lastPage() - 1)
@@ -785,7 +788,8 @@
                                         {{-- Next Page Link --}}
                                         @if ($pelatihanMitraSendiri->hasMorePages())
                                             <li class="page-item"><a class="page-link"
-                                                    href="{{ $pelatihanMitraSendiri->nextPageUrl() }}" rel="next">&raquo;</a>
+                                                    href="{{ $pelatihanMitraSendiri->nextPageUrl() }}"
+                                                    rel="next">&raquo;</a>
                                             </li>
                                         @else
                                             <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
@@ -1107,7 +1111,7 @@
                     @foreach ($pelatihanMitraSendiri as $pelatihan)
                         <div class="modal fade" id="edit{{ $pelatihan->id }}" tabindex="-1"
                             aria-labelledby="editPelatihanModalLabel{{ $pelatihan->id }}" aria-hidden="true">
-                            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-dialog modal-xl modal-dialog-centered">
                                 <div class="modal-content edit-modal-content">
                                     <form id="editForm{{ $pelatihan->id }}"
                                         action="{{ url('/mitra/update-pelatihan/' . $pelatihan->id) }}"
@@ -1117,6 +1121,7 @@
                                         <input type="hidden" name="action" value="update">
                                         <input type="hidden" name="id" value="{{ $pelatihan->id }}">
 
+                                        <!-- Header - Fixed -->
                                         <div class="modal-header border-0">
                                             <h5 class="modal-title fw-semibold text-primary-emphasis">
                                                 <i class="bi bi-pencil-square me-2"></i> Edit Pelatihan
@@ -1125,7 +1130,9 @@
                                                 aria-label="Close"></button>
                                         </div>
 
-                                        <div class="modal-body">
+                                        <!-- Body - Scrollable -->
+                                        <div class="modal-body"
+                                            style="max-height: calc(100vh - 200px); overflow-y: auto;">
                                             <div class="row gx-4 gy-3">
                                                 <!-- Left Column -->
                                                 <div class="col-lg-6">
@@ -1214,7 +1221,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="modal-footer border-top-0">
+                                        <!-- Footer - Fixed -->
+                                        <div class="modal-footer border-top">
                                             <button type="button" class="btn btn-light"
                                                 data-bs-dismiss="modal">Batal</button>
                                             <button type="button" class="btn btn-primary"
@@ -1381,7 +1389,7 @@
                         button.addEventListener('click', function() {
                             const sertifikasiId = this.getAttribute('data-id');
                             window.location.href =
-                                `/public/mitra/pelatihan/${sertifikasiId}/peserta/export`;
+                                `/mitra/pelatihan/${sertifikasiId}/peserta/export`;
                         });
                     });
                 });

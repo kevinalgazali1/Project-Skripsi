@@ -113,7 +113,7 @@
             color: #437F9F;
         }
 
-        .siswa {
+        .admin {
             background-color: #ece8ff;
             color: #5a4895;
         }
@@ -322,11 +322,11 @@
 
                 <!-- Siswa -->
                 <div class="col-md-6 col-lg-4 d-flex">
-                    <a href="{{ route('login.alumni') }}" class="card-role siswa text-decoration-none w-100">
+                    <a href="{{ route('login.admin') }}" class="card-role admin text-decoration-none w-100">
                         <div>
-                            <h2>Siswa</h2>
-                            <p>Jika kamu sedang menempuh pendidikan di SMA/SMK/MA dan ingin mulai menjelajahi peluang
-                                karier</p>
+                            <h2>Admin</h2>
+                            <p>Jika kamu adalah administrator yang mengelola sistem dan mengawasi seluruh aktivitas
+                                platform</p>
                         </div>
                     </a>
                 </div>

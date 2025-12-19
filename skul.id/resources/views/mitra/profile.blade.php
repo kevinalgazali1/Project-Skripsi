@@ -337,7 +337,7 @@
             <div class="modal fade" id="editAccountModal" tabindex="-1" aria-labelledby="editAccountModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
-                    <form method="POST" action="{{ route('mitra.account.update') }}">
+                    <form method="POST" action="{{ route('mitra.account.update') }}" id="editFormAkun">
                         @csrf
                         @method('PUT')
 
@@ -352,7 +352,7 @@
                                 <div class="mb-3">
                                     <label for="no_hp" class="form-label">No. HP</label>
                                     <input type="text" name="no_hp" id="no_hp"
-                                        value="{{ old('no_hp', $user->no_hp) }}" class="form-control" required>
+                                        value="{{ old('no_hp', $user->no_hp) }}" class="form-control" readonly>
                                     @error('no_hp')
                                         <div class="text-danger small">{{ $message }}</div>
                                     @enderror
@@ -403,7 +403,7 @@
             <div class="modal fade" id="editMitraModal" tabindex="-1" aria-labelledby="editMitraModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg">
-                    <form action="{{ route('mitra.updateProfile') }}" method="POST">
+                    <form action="{{ route('mitra.updateProfile') }}" method="POST" id="editForm">
                         @csrf
                         @method('PUT')
                         <div class="modal-content rounded-4">
@@ -589,7 +589,7 @@
                         cancelButtonText: 'Batal'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            document.getElementById('editForm').submit();
+                            document.getElementById('editFormAkun').submit();
                         }
                     });
                 }

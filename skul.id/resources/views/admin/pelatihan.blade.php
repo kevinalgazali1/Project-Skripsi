@@ -1036,7 +1036,7 @@
                     const pelatihanId = this.getAttribute('data-id');
                     if (pelatihanId) {
                         window.location.href =
-                            `/public/admin/pelatihan/${pelatihanId}/peserta/export`;
+                            `/admin/pelatihan/${pelatihanId}/peserta/export`;
                     }
                 });
             });

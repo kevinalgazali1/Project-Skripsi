@@ -426,6 +426,7 @@
                     pendidikan: '{{ $l->pendidikan }}',
                     deskripsi: `{!! $l->deskripsi !!}`,
                     gaji: '{{ $l->gaji }}',
+                    skills: '{{ $l->skills }}',
                     status: '{{ $l->status }}',
                     foto: '{{ asset('storage/' . $l->gambar) }}'
                 })">
@@ -484,13 +485,19 @@
 
                                                             <div class="mb-3">
                                                                 <label class="form-label">Skill yang dibutuhkan</label>
-                                                                <input class="form-control" id="edit_skills" name="skills" rows="5" required></input>
+                                                                <input class="form-control" id="edit_skills"
+                                                                    name="skills" rows="5" required></input>
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label class="form-label">Pendidikan</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="edit_pendidikan" name="pendidikan" required>
+                                                                <label class="form-label">Pendidikan Minimal</label>
+                                                                <select name="pendidikan" id="edit_pendidikan"
+                                                                    class="form-select" required>
+                                                                    <option disabled>Pilih Pendidikan</option>
+                                                                    <option value="SMA/SMK">SMA/SMK</option>
+                                                                    <option value="D3">D3</option>
+                                                                    <option value="S1">S1</option>
+                                                                </select>
                                                             </div>
 
                                                             <div class="mb-3">
@@ -857,8 +864,8 @@
 
                                         <div class="mb-3">
                                             <label class="form-label">Skill yang dibutuhkan</label>
-                                            <input name="skills" class="form-control" rows="3" placeholder="Contoh: HTML, CSS, JavaScript..."
-                                                required></input>
+                                            <input name="skills" class="form-control" rows="3"
+                                                placeholder="Contoh: HTML, CSS, JavaScript..." required></input>
                                         </div>
 
                                         <div class="mb-3">
@@ -940,7 +947,7 @@
                         button.addEventListener('click', function() {
                             const lokerId = this.getAttribute('data-id');
                             window.location.href =
-                                `/public/admin/loker/${lokerId}/peserta/export`;
+                                `/admin/loker/${lokerId}/peserta/export`;
                         });
                     });
                 });
@@ -1091,7 +1098,9 @@
                 }
 
                 function openEditLokerModal(data) {
-                    document.getElementById('edit_id').value = data.id;
+                    // Set action form dinamis
+                    document.getElementById('editForm').action = `/admin/update-loker/${data.id}`;
+
                     document.getElementById('edit_nama_perusahaan').value = data.nama_perusahaan;
                     document.getElementById('edit_posisi').value = data.posisi;
                     document.getElementById('edit_lokasi').value = data.lokasi;
@@ -1101,9 +1110,9 @@
                     document.getElementById('edit_skills').value = data.skills;
                     document.getElementById('edit_status').value = data.status;
 
-                    // Parsing gaji jika hanya berupa 1 field string
+                    // Parsing gaji
                     if (data.gaji) {
-                        let match = data.gaji.match(/Rp\s?([\d.]+)\s?-\s?Rp\s?([\d.]+)/);
+                        let match = data.gaji.match(/([\d.]+)\s?-\s?([\d.]+)/);
                         if (match) {
                             let gajiMin = match[1].replace(/\./g, '');
                             let gajiMax = match[2].replace(/\./g, '');
@@ -1116,10 +1125,12 @@
                     }
 
                     // Preview gambar
-                    if (data.foto) {
+                    if (data.gambar) {
                         const preview = document.getElementById('imagePreviewEdit');
-                        preview.src = data.foto;
+                        preview.src = `/storage/${data.gambar}`;
                         preview.classList.remove('d-none');
+                    } else {
+                        document.getElementById('imagePreviewEdit').classList.add('d-none');
                     }
                 }
             </script>

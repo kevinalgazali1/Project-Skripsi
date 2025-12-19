@@ -850,9 +850,9 @@
             @foreach ($sertifikasis as $s)
                 <div class="modal fade" id="modalEdit{{ $s->id }}" tabindex="-1"
                     aria-labelledby="modalEditLabel{{ $s->id }}" aria-hidden="true">
-                    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-dialog modal-xl modal-dialog-centered">
                         <div class="modal-content edit-modal-content">
-                            <form id="editForm" method="POST"
+                            <form id="editForm{{ $s->id }}" method="POST"
                                 action="{{ url('/admin/update-sertifikasi/' . $s->id) }}"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -860,13 +860,17 @@
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="id" value="{{ $s->id }}">
 
+                                <!-- Header - Fixed -->
                                 <div class="modal-header border-0">
                                     <h5 class="modal-title fw-semibold text-primary-emphasis">
                                         <i class="bi bi-pencil-square me-2"></i>Edit Sertifikasi
                                     </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
 
-                                <div class="modal-body">
+                                <!-- Body - Scrollable -->
+                                <div class="modal-body" style="max-height: calc(100vh - 200px); overflow-y: auto;">
                                     <div class="row gx-4 gy-3">
                                         <!-- Left Section -->
                                         <div class="col-lg-6">
@@ -947,11 +951,12 @@
                                     </div>
                                 </div>
 
-                                <div class="modal-footer border-top-0">
+                                <!-- Footer - Fixed -->
+                                <div class="modal-footer border-top">
                                     <button type="button" class="btn btn-light"
                                         data-bs-dismiss="modal">Batal</button>
                                     <button type="button" class="btn btn-primary"
-                                        onclick="confirmEdit()">Perbarui</button>
+                                        onclick="confirmEdit({{ $s->id }})">Perbarui</button>
                                 </div>
                             </form>
                         </div>
@@ -1043,7 +1048,7 @@
             });
         }
 
-        function confirmEdit() {
+        function confirmEdit(id) {
             Swal.fire({
                 title: 'Perbarui Sertifikasi?',
                 text: "Pastikan semua data sudah benar.",
@@ -1055,7 +1060,7 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.getElementById('editForm').submit();
+                    document.getElementById('editForm' + id).submit();
                 }
             });
         }
@@ -1135,7 +1140,7 @@
                     const sertifikasiId = this.getAttribute('data-id');
                     if (sertifikasiId) {
                         window.location.href =
-                            `/public/admin/sertifikasi/${sertifikasiId}/peserta/export`;
+                            `/admin/sertifikasi/${sertifikasiId}/peserta/export`;
                     }
                 });
             });

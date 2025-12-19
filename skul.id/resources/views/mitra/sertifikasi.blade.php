@@ -1348,7 +1348,7 @@
                     button.addEventListener('click', function() {
                         const sertifikasiId = this.getAttribute('data-id');
                         window.location.href =
-                            `/public/mitra/sertifikasi/${sertifikasiId}/peserta/export`;
+                            `/mitra/sertifikasi/${sertifikasiId}/peserta/export`;
                     });
                 });
             });

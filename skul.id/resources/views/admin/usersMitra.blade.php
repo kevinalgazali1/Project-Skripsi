@@ -266,13 +266,12 @@
                                     <td class="text-start">{{ $m->alamat }}</td>
 
                                     <td>
-                                        <form action="{{ route('admin.usersmitra.destroy') }}" method="POST"
-                                            onsubmit="return confirm('Yakin ingin menghapus mitra ini?')"
+                                        <form id="delete-form-{{ $m->id }}"
+                                            action="{{ route('admin.usersmitra.destroy', $m->id) }}" method="POST"
                                             class="d-inline">
                                             @csrf
-                                            <input type="hidden" name="action" value="delete">
-                                            <input type="hidden" name="id" value="{{ $m->id }}">
-                                            <button type="submit"
+                                            @method('DELETE')
+                                            <button type="button" onclick="confirmDelete({{ $m->id }})"
                                                 class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1">
                                                 <i class="bi bi-trash-fill"></i> Hapus
                                             </button>
@@ -464,8 +463,24 @@
                 }
             });
         }
-    </script>
 
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Yakin ingin menghapus mitra ini?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

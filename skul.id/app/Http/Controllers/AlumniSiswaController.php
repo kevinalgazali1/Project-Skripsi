@@ -21,7 +21,7 @@ class AlumniSiswaController extends Controller
     public function index()
     {
         $user = User::with('alumniSiswaProfile')->find(Auth::id());
-        $artikels = Artikel::latest()->take(4)->get(); // Ambil 4 artikel terbaru
+        $artikels = Artikel::latest()->take(3)->get(); // Ambil 4 artikel terbaru
         return view('alumni-siswa.beranda', compact('user', 'artikels'));
     }
 
