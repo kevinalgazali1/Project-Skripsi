@@ -58,8 +58,6 @@ def rekomendasi(user_id: int):
             user_profile[key] = ""
     
     # 2. CLEAN TEXT (DENGAN PEMBOBOTAN)
-    # Referensi: Alsaif & Hidri (2022) - "assigned higher weights to job skills"
-    # Gabungkan fitur user dengan pembobotan berbeda
     user_text_raw = (
         f"{user_profile['bidang_pekerjaan']} " * 3 +      # Bobot 3x
         f"{user_profile['jurusan_sekolah']} " +           # Bobot 1x
@@ -115,6 +113,16 @@ def rekomendasi(user_id: int):
         loker_idx = df.index.get_loc(idx) + 1
         loker_tfidf_vector = tfidf_matrix[loker_idx].toarray()[0]
         
+        # Ambil top 10 terms dengan TF-IDF tertinggi untuk loker ini
+        loker_top_indices = loker_tfidf_vector.argsort()[-10:][::-1]
+        loker_top_terms = [
+            {
+                "term": feature_names[i],
+                "tfidf_score": round(float(loker_tfidf_vector[i]), 4)
+            }
+            for i in loker_top_indices if loker_tfidf_vector[i] > 0
+        ]
+        
         # Hitung dot product manual
         dot_product = sum(user_tfidf_vector * loker_tfidf_vector)
         user_magnitude = sum(user_tfidf_vector ** 2) ** 0.5
@@ -143,6 +151,24 @@ def rekomendasi(user_id: int):
             "gambar": row['gambar'],
             "deskripsi": row['deskripsi'],
             "skills": row['skills'],
+            "preprocessing_loker": {
+                "loker_text_raw": row['fitur_loker_raw'][:200] + "..." if len(row['fitur_loker_raw']) > 200 else row['fitur_loker_raw'],
+                "loker_text_clean": row['fitur_loker_clean'][:200] + "..." if len(row['fitur_loker_clean']) > 200 else row['fitur_loker_clean'],
+                "loker_top_tfidf_terms": loker_top_terms,
+                "loker_vector_non_zero_terms": int(sum(loker_tfidf_vector > 0))
+            },
+            "tfidf_detail_loker": {
+                "all_terms_with_scores": [
+                    {
+                        "term": feature_names[i],
+                        "tfidf_score": round(float(loker_tfidf_vector[i]), 4),
+                        "user_has_term": bool(user_tfidf_vector[i] > 0),
+                        "user_tfidf_score": round(float(user_tfidf_vector[i]), 4) if user_tfidf_vector[i] > 0 else 0
+                    }
+                    for i in range(len(feature_names)) if loker_tfidf_vector[i] > 0
+                ],
+                "total_unique_terms": int(sum(loker_tfidf_vector > 0))
+            },
             "perhitungan": {
                 "cosine_similarity_raw": round(float(row['similarity_raw']), 4),
                 "similarity_persen": round(float(row['similarity_persen']), 2),
